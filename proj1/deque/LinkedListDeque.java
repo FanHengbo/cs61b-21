@@ -2,11 +2,11 @@ package deque;
 
 import java.util.Iterator;
 
-public class LinkedListDeque<T> implements Deque<T>{
+public class LinkedListDeque<T> implements Deque<T> {
     private Node sentinel;
     private int size;
 
-    public class Node {
+    private class Node {
         private T item;
         private Node next;
         private Node prev;
@@ -15,6 +15,9 @@ public class LinkedListDeque<T> implements Deque<T>{
             prev = p;
             next = n;
         }
+    }
+    public boolean equals(Object o) {
+        return o instanceof Deque<?>;
     }
     public LinkedListDeque() {
         sentinel = new Node(null, null, null);

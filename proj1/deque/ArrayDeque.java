@@ -3,7 +3,7 @@ package deque;
 import java.util.Iterator;
 
 public class ArrayDeque<T> implements Deque<T> {
-    static final int RFACTOR = 2;
+    private static final int RFACTOR = 2;
     private T[] items;
     private int size;
     private int front;
@@ -14,6 +14,9 @@ public class ArrayDeque<T> implements Deque<T> {
         front = -1;
         rear = 0;
         size = 0;
+    }
+    public boolean equals(Object o) {
+        return o instanceof Deque<?>;
     }
     public Iterator<T> iterator() {
         Iterator<T> it = new Iterator<T>() {
@@ -54,7 +57,7 @@ public class ArrayDeque<T> implements Deque<T> {
         items[rear] = item;
         ++size;
     }
-    public void resize(int newSize) {
+    private void resize(int newSize) {
         T[] newArray = (T[]) new Object[newSize];
         if (front < rear) {
             System.arraycopy(items, front, newArray, 0, size);
@@ -70,7 +73,7 @@ public class ArrayDeque<T> implements Deque<T> {
         }
         items = newArray;
     }
-    public boolean isFull() {
+    private boolean isFull() {
         return (front == 0 && rear == items.length - 1 || front == rear + 1);
     }
     @Override
@@ -83,14 +86,14 @@ public class ArrayDeque<T> implements Deque<T> {
             return;
         }
         for (int i = front; i != rear + 1;) {
-            System.out.print(items[i]+" ");
+            System.out.print(items[i] + " ");
             i = nextElement(i);
         }
         System.out.println();
     }
     @Override
     public T removeFirst() {
-        double fraction = (double)size / (double)items.length;
+        double fraction = (double) size / (double) items.length;
         if (isEmpty()) {
             return null;
         }
@@ -105,15 +108,15 @@ public class ArrayDeque<T> implements Deque<T> {
         --size;
         return toRemove;
     }
-    public int nextElement(int cur) {
-        return (cur + items.length + 1) % items.length;
+    private int nextElement(int cur) {
+        return (cur + 1) % items.length;
     }
-    public int prevElement(int cur) {
+    private int prevElement(int cur) {
         return (cur + items.length - 1) % items.length;
     }
     @Override
     public T removeLast() {
-        double fraction = (double)size / (double)items.length;
+        double fraction = (double) size / (double) items.length;
         if (isEmpty()) {
             return null;
         }
