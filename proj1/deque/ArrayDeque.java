@@ -15,8 +15,14 @@ public class ArrayDeque<T> implements Deque<T> {
         rear = 0;
         size = 0;
     }
+    public ArrayDeque(int size) {
+        items = (T[]) new Object[size];
+        front = -1;
+        rear = 0;
+        size = 0;
+    }
     public boolean equals(Object o) {
-        return o instanceof Deque<?>;
+        return o instanceof Deque<?> && this.equals(o);
     }
     public Iterator<T> iterator() {
         Iterator<T> it = new Iterator<T>() {
