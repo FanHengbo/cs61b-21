@@ -1,6 +1,6 @@
 package deque;
 
-public class ArrayDeque<T> {
+public class ArrayDeque<T> implements Deque<T> {
     static final int RFACTOR = 2;
     private T[] items;
     private int size;
@@ -10,9 +10,10 @@ public class ArrayDeque<T> {
     public ArrayDeque() {
         items = (T[]) new Object[8];
         front = -1;
-        rear= 0;
+        rear = 0;
         size = 0;
     }
+    @Override
     public void addFirst(T item) {
         if (isFull()) {
             resize(size * RFACTOR);
@@ -27,6 +28,7 @@ public class ArrayDeque<T> {
         items[front] = item;
         ++size;
     }
+    @Override
     public void addLast(T item) {
         if (isFull()) {
             resize(size * RFACTOR);
@@ -42,24 +44,23 @@ public class ArrayDeque<T> {
             if (newSize < items.length) {
                 // When we need to shrink the size of items
                 front = 0;
-                rear = size-1;
+                rear = size - 1;
             }
         } else {
-            System.arraycopy(items, 0, newArray, 0, rear+1);
-            System.arraycopy(items, front, newArray, newSize-size+rear+1, size-rear-1);
-            front = newSize-size+rear+1;
+            System.arraycopy(items, 0, newArray, 0, rear + 1);
+            System.arraycopy(items, front, newArray, newSize - size + rear + 1, size - rear - 1);
+            front = newSize - size + rear + 1;
         }
         items = newArray;
     }
     public boolean isFull() {
-        return (front == 0 && rear == items.length-1 || front == rear + 1);
+        return (front == 0 && rear == items.length - 1 || front == rear + 1);
     }
-    public boolean isEmpty() {
-        return front == -1 && rear == 0;
-    }
+    @Override
     public int size() {
         return size;
     }
+    @Override
     public void printDeque() {
         if (isEmpty()) {
             return;
@@ -70,6 +71,7 @@ public class ArrayDeque<T> {
         }
         System.out.println();
     }
+    @Override
     public T removeFirst() {
         double fraction = (double)size / (double)items.length;
         if (isEmpty()) {
@@ -92,6 +94,7 @@ public class ArrayDeque<T> {
     public int prevElement(int cur) {
         return (cur + items.length - 1) % items.length;
     }
+    @Override
     public T removeLast() {
         double fraction = (double)size / (double)items.length;
         if (isEmpty()) {
@@ -107,10 +110,11 @@ public class ArrayDeque<T> {
         --size;
         return toRemove;
     }
+    @Override
     public T get(int index) {
-        if (isEmpty() || index > size-1) {
+        if (isEmpty() || index > size - 1) {
             return null;
         }
-        return items[(index+front)%items.length];
+        return items[(index + front) % items.length];
     }
 }
