@@ -53,7 +53,7 @@ public class ArrayDeque<T> implements Deque<T> {
         if (isFull()) {
             resize(size * RFACTOR);
         }
-        ++rear;
+        rear = nextElement(rear);
         items[rear] = item;
         ++size;
     }

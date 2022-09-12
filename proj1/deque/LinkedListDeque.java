@@ -10,14 +10,14 @@ public class LinkedListDeque<T> implements Deque<T> {
         private T item;
         private Node next;
         private Node prev;
-        public Node(T i, Node p, Node n) {
+        Node(T i, Node p, Node n) {
             item = i;
             prev = p;
             next = n;
         }
     }
     public boolean equals(Object o) {
-        return o instanceof Deque<?>;
+        return o instanceof Deque<?> && this.equals(o);
     }
     public LinkedListDeque() {
         sentinel = new Node(null, null, null);
@@ -119,7 +119,7 @@ public class LinkedListDeque<T> implements Deque<T> {
         }
         return getRecursive(sentinel.next, index);
     }
-    public T getRecursive(Node n, int index) {
+    private T getRecursive(Node n, int index) {
         if (index == 0) {
             return n.item;
         }
