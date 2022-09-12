@@ -1,5 +1,7 @@
 package deque;
 
+import java.util.Iterator;
+
 public class ArrayDeque<T> implements Deque<T> {
     static final int RFACTOR = 2;
     private T[] items;
@@ -12,6 +14,21 @@ public class ArrayDeque<T> implements Deque<T> {
         front = -1;
         rear = 0;
         size = 0;
+    }
+    public Iterator<T> iterator() {
+        Iterator<T> it = new Iterator<T>() {
+            private int currentIndex = 0;
+            @Override
+            public boolean hasNext() {
+                return currentIndex < size;
+            }
+
+            @Override
+            public T next() {
+                return get(currentIndex++);
+            }
+        };
+        return it;
     }
     @Override
     public void addFirst(T item) {
