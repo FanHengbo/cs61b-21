@@ -16,7 +16,7 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
         size = 0;
     }
     public boolean equals(Object o) {
-        return o instanceof Deque<?> && ((Deque<?>) o).size() == size;
+        return o instanceof Deque<?> && o.getClass() == this.getClass() && ((Deque<?>) o).size() == size;
     }
     public Iterator<T> iterator() {
         Iterator<T> it = new Iterator<T>() {
@@ -80,7 +80,7 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
         items = newArray;
     }
     private boolean isFull() {
-        return (front == 0 && rear == items.length - 1 || front == rear + 1);
+        return (size == items.length);
     }
     @Override
     public int size() {
@@ -122,10 +122,10 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
     }
     @Override
     public T removeLast() {
-        double fraction = (double) size / (double) items.length;
         if (isEmpty()) {
             return null;
         }
+        double fraction = (double) size / (double) items.length;
         if (fraction < 0.25 && items.length > 8) {
             // Need to shrink
             resize(items.length / RFACTOR);

@@ -17,7 +17,7 @@ public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
         }
     }
     public boolean equals(Object o) {
-        return o instanceof Deque<?> && ((Deque<?>) o).size() == size;
+        return o instanceof Deque<?> && o.getClass() == this.getClass() && ((Deque<?>) o).size() == size;
     }
     public LinkedListDeque() {
         sentinel = new Node(null, null, null);
