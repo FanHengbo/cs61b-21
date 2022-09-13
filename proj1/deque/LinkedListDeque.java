@@ -17,7 +17,7 @@ public class LinkedListDeque<T> implements Deque<T> {
         }
     }
     public boolean equals(Object o) {
-        return o instanceof Deque<?> && this.equals(o);
+        return o instanceof LinkedListDeque<?> && this.equals(o);
     }
     public LinkedListDeque() {
         sentinel = new Node(null, null, null);

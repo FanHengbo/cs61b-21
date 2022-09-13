@@ -22,7 +22,7 @@ public class ArrayDeque<T> implements Deque<T> {
         size = 0;
     }
     public boolean equals(Object o) {
-        return o instanceof Deque<?> && this.equals(o);
+        return o instanceof ArrayDeque<?> && this.equals(o);
     }
     public Iterator<T> iterator() {
         Iterator<T> it = new Iterator<T>() {
@@ -58,6 +58,12 @@ public class ArrayDeque<T> implements Deque<T> {
     public void addLast(T item) {
         if (isFull()) {
             resize(size * RFACTOR);
+        } else if (front == -1) {
+            items[0] = item;
+            front = 0;
+            rear = 0;
+            ++size;
+            return;
         }
         rear = nextElement(rear);
         items[rear] = item;
