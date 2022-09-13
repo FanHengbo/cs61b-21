@@ -2,7 +2,7 @@ package deque;
 
 import java.util.Iterator;
 
-public class LinkedListDeque<T> implements Deque<T> {
+public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
     private Node sentinel;
     private int size;
 
@@ -17,7 +17,7 @@ public class LinkedListDeque<T> implements Deque<T> {
         }
     }
     public boolean equals(Object o) {
-        return o instanceof LinkedListDeque<?> && this.equals(o);
+        return o instanceof Deque<?> && ((Deque<?>) o).size() == size;
     }
     public LinkedListDeque() {
         sentinel = new Node(null, null, null);

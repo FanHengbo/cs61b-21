@@ -2,7 +2,7 @@ package deque;
 
 import java.util.Comparator;
 
-public class MaxArrayDeque<T> {
+public class MaxArrayDeque<T> extends ArrayDeque<T> {
     private deque.ArrayDeque<T> deq;
     private Comparator<T> comparator;
     public MaxArrayDeque(Comparator<T> c) {
@@ -33,28 +33,5 @@ public class MaxArrayDeque<T> {
         }
         return maxItem;
     }
-    public void addFirst(T item) {
-        deq.addFirst(item);
-    }
-    public void addLast(T item) {
-        deq.addLast(item);
-    }
-    public boolean isEmpty() {
-        return deq.isEmpty();
-    }
-    public int size() {
-        return deq.size();
-    }
-    public void printDeque() {
-        deq.printDeque();
-    }
-    public T removeFirst() {
-        return deq.removeFirst();
-    }
-    public T removeLast() {
-        return deq.removeLast();
-    }
-    public T get(int index) {
-        return deq.get(index);
-    }
 }
+

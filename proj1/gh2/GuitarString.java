@@ -3,9 +3,7 @@ package gh2;
 
 import deque.ArrayDeque;
 import deque.Deque;
-import deque.LinkedListDeque;
 
-import java.util.Iterator;
 
 
 //Note: This file will not compile until you complete the Deque implementations
@@ -21,8 +19,8 @@ public class GuitarString {
 
     /* Create a guitar string of the given frequency.  */
     public GuitarString(double frequency) {
-        long quantity = Math.round(SR / DECAY);
-        buffer = new ArrayDeque<>((int) quantity);
+        long quantity = Math.round(SR / frequency);
+        buffer = new ArrayDeque<>();
         for (int i = 0; i < quantity; ++i) {
             buffer.addFirst(0.0);
         }
@@ -41,6 +39,9 @@ public class GuitarString {
         buffer.removeFirst();
         for (int i = 0; i < size; ++i) {
             buffer.addFirst(r);
+            if (i == size - 1) {
+                break;
+            }
             buffer.removeLast();
             r = Math.random() - 0.5;
         }

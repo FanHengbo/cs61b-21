@@ -2,7 +2,7 @@ package deque;
 
 import java.util.Iterator;
 
-public class ArrayDeque<T> implements Deque<T> {
+public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
     private static final int RFACTOR = 2;
     private T[] items;
     private int size;
@@ -15,14 +15,8 @@ public class ArrayDeque<T> implements Deque<T> {
         rear = 0;
         size = 0;
     }
-    public ArrayDeque(int size) {
-        items = (T[]) new Object[size];
-        front = -1;
-        rear = 0;
-        size = 0;
-    }
     public boolean equals(Object o) {
-        return o instanceof ArrayDeque<?> && this.equals(o);
+        return o instanceof Deque<?> && ((Deque<?>) o).size() == size;
     }
     public Iterator<T> iterator() {
         Iterator<T> it = new Iterator<T>() {
@@ -50,7 +44,7 @@ public class ArrayDeque<T> implements Deque<T> {
             ++size;
             return;
         }
-        front = nextElement(front);
+        front = prevElement(front);
         items[front] = item;
         ++size;
     }
@@ -105,10 +99,10 @@ public class ArrayDeque<T> implements Deque<T> {
     }
     @Override
     public T removeFirst() {
-        double fraction = (double) size / (double) items.length;
         if (isEmpty()) {
             return null;
         }
+        double fraction = (double) size / (double) items.length;
         if (fraction < 0.25 && items.length > 8) {
             // Need to shrink
             resize(items.length / RFACTOR);
